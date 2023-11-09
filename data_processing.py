@@ -181,3 +181,31 @@ for k in forwards_passes_data:
 print(f"Average number of passes made by forwards : {sum_for_pass/len(forwards_passes_data)}")
 print(f"Average number of passes made by midfielders : {sum_mid_pass/len(midfielders_passes_data)}")
 print()
+titanic_data = Table('Titanic', titanic)
+first_class = titanic_data.filter(lambda x: int(x['class']) == 1)
+third_class  = titanic_data.filter(lambda x: int(x['class']) == 3)
+first_class_fare = first_class.select(['fare'])
+third_class_fare = third_class.select(['fare'])
+sum_first_fare = 0
+sum_third_fare = 0
+for h in first_class_fare:
+    sum_first_fare += float(h['fare'])
+for j in third_class_fare:
+    sum_third_fare += float(j['fare'])
+print(f"Average fare paid by passengers in the first class : {sum_first_fare/len(first_class_fare)}")
+print(f"Average fare paid by passengers in the third class : {sum_third_fare/len(third_class_fare)}")
+print()
+male = titanic_data.filter(lambda x: x['gender'] == 'M')
+female = titanic_data.filter(lambda x: x['gender'] == 'F')
+survival_rate_male = male.select(['survived'])
+survival_rate_female = female.select(['survived'])
+sum_survived_male = 0
+sum_survived_female = 0
+for b in survival_rate_male:
+    if b['survived'] == 'yes':
+        sum_survived_male += 1
+for o in survival_rate_female:
+    if o['survived'] == 'yes':
+        sum_survived_female += 1
+print(f"Survival rate of male : {(sum_survived_male/len(survival_rate_male)) * 100} %")
+print(f"Survival rate of female : {(sum_survived_female/len(survival_rate_female)) * 100} %")
